@@ -5,7 +5,7 @@ ECE 528
 K-L Project
 """
 import sys
-#import argparse
+import argparse
 import time 
 
 def process_graph(graph_dict,partitions):
@@ -13,13 +13,10 @@ def process_graph(graph_dict,partitions):
     cost_of_node_ext = 0
     cost_of_node_int = 0
     A_or_B_partition = [0,1]
-    #node_pairs = []
-    #print ' '
+
     # Need to iterate thru both partitions
     for partition in A_or_B_partition:
         # Lets iterate over all nodes in a partition        
-        #TODO need to only compute d values of nodes that are in node pairs,
-        # mayve create a list of excluded pairs and check against that
         for node in partitions[partition]:
             # Lets get all edges per node in partition and calc ext cost
             if node in node_to_ignore:
@@ -46,8 +43,7 @@ def process_graph(graph_dict,partitions):
 
 def calculate_gain(graph_dict,node_pairs,partitions, nodes_to_move) :
     max_gain_pair= []    
-    # Lets calculate the gain 'g' g= Dx + Dy - Cxy and find the maximum 
-    t0 = time.time()    
+    # Lets calculate the gain 'g' g= Dx + Dy - Cxy and find the maximum    
     max_gain = -100000
     for pair in node_pairs:
         partial_gain = graph_dict[pair[0]][2] + graph_dict[pair[1]][2] 
@@ -63,10 +59,7 @@ def calculate_gain(graph_dict,node_pairs,partitions, nodes_to_move) :
     nodes_to_move.append([max_gain_pair,max_gain])
     node_to_ignore.append(max_gain_pair[0])
     node_to_ignore.append(max_gain_pair[1])
-    #print 'is this teh time hog?', time.time() - t0
-    
-    t0 = time.time()
-    #temp = list(node_pairs)  
+ 
     #TODO create dictonary to replace node pairs
     keep_checking = True
     counter = 0
@@ -90,19 +83,18 @@ def calculate_gain(graph_dict,node_pairs,partitions, nodes_to_move) :
     partitions[0].append((max_gain_pair[1]))
     partitions[1].remove((max_gain_pair[1]))
     partitions[1].append((max_gain_pair[0]))
-    #print 'or is it this one?', time.time() - t0
     
     return (node_pairs, partitions )
 
 if __name__ == '__main__':
-    #parser = argparse.ArgumentParser(description="""Prints out nodes by partition and
-     #                                               cost of partition.""")
-    #parser.add_argument("filename", help="""Input filename to be used for processing.""")
+    parser = argparse.ArgumentParser(description="""Prints out nodes by partition and
+                                                    cost of partition.""")
+    parser.add_argument("filename", help="""Input filename to be used for processing.""")
 
-    #args = parser.parse_args()
+    args = parser.parse_args()
 
-    #file_handle = open(args.filename,'r')
-    file_handle = open('./input7.txt','r')
+    file_handle = open(args.filename,'r')
+    #file_handle = open('./input7.txt','r')
     # First line of input file, graph properties
     first_line = file_handle.readline()
     first_line = first_line.rsplit()
@@ -188,32 +180,25 @@ if __name__ == '__main__':
         # Print out partition info
         node_to_ignore =[]
         num_partitions = 0
-        print 'Iteration ', iteration_count
+        print '\nIteration ', iteration_count
         for partition in partitions:
             print 'Partition', num_partitions + 1, partition
             num_partitions = num_partitions + 1
         
         reset = True
-        t0 = time.time()
         node_pairs, total_cost = process_graph(graph_dict,partitions)    
         reset = False
         print 'Cost of Partition', total_cost
-        #print time.time() - t0, 'time to complete'
         nodes_to_move = []
         max_gain_pair= [] 
         
         
         while node_pairs:
-            t0 = time.time()
-            node_pairs, partitions = calculate_gain(graph_dict,node_pairs,partitions,nodes_to_move)
-            #print 'finished calculate gain'
-            #print time.time() - t0, 'time to complete'           
+            node_pairs, partitions = calculate_gain(graph_dict,node_pairs,partitions,nodes_to_move)         
             if node_pairs: 
                 t0 = time.time()
                 ignore, ignore2 = process_graph(graph_dict,partitions)
-                #print 'finished process graph'
-                #print time.time() - t0, 'time to complete'  
-        #print nodes_to_move
+
         partial_sum=0
         max_sum = 0
         node_counter = 1
@@ -226,7 +211,7 @@ if __name__ == '__main__':
             node_counter = node_counter +1            
             #print partial_sum
         #print 'final partial sum shoudl be zero', partial_sum    
-        print 'maximum gain', max_sum
+        #print 'maximum gain', max_sum
         #print 'by moving nodes_to_move[0:', node_counter_max,']'
         #print nodes_to_move[0:node_counter_max]
         
@@ -241,9 +226,9 @@ if __name__ == '__main__':
                 partitions[1].remove(move_nodes[0][1])
                 partitions[1].append(move_nodes[0][0])
             #print 'new partition'            
-            print partitions
+            #print partitions
         else:
-            print 'all done'
+            print '\nall done.Best cost of partition =', total_cost
             partitions=list(reversed(partitions))
             partitions[0]=sorted(partitions[0])
             partitions[1]=sorted(partitions[1])
