@@ -14,7 +14,7 @@ def process_graph(graph_dict,partitions):
     cost_of_node_ext = 0
     cost_of_node_int = 0
     A_or_B_partition = [0,1]
-    t0 = time.time() 
+    #t0 = time.time() 
     node_pairs_internal = []
     #print ' '
     # Need to iterate thru both partitions
@@ -45,14 +45,13 @@ def process_graph(graph_dict,partitions):
             cost_of_node_int = 0            
             cost_of_node_ext = 0    
     total_cost = total_cost/2  
-    np.mean(d_values)
-    print 'time to process graph', time.time() - t0
+    #print 'time to process graph', time.time() - t0
     return (node_pairs_internal, total_cost)
 
 def calculate_gain(graph_dict,node_pairs,partitions, nodes_to_move) :
     max_gain_pair= []    
     # Lets calculate the gain 'g' g= Dx + Dy - Cxy and find the maximum 
-    t0 = time.time()    
+    #t0 = time.time()    
     max_gain = -100000
     for pair in node_pairs:
         partial_gain = graph_dict[pair[0]][2] + graph_dict[pair[1]][2] 
@@ -68,9 +67,9 @@ def calculate_gain(graph_dict,node_pairs,partitions, nodes_to_move) :
     nodes_to_move.append([max_gain_pair,max_gain])
     node_to_ignore.append(max_gain_pair[0])
     node_to_ignore.append(max_gain_pair[1])
-    print 'is this teh time hog?', time.time() - t0
+    #print 'is this teh time hog?', time.time() - t0
     
-    t0 = time.time()
+    #t0 = time.time()
     #temp = list(node_pairs)  
     #TODO create dictonary to replace node pairs
     keep_checking = True
@@ -80,7 +79,6 @@ def calculate_gain(graph_dict,node_pairs,partitions, nodes_to_move) :
     while keep_checking:
         try:
             pair = node_pairs[counter]            
-            #print pair
             if node1 in pair or node2 in pair:
                 node_pairs.pop(counter) 
             else:
@@ -95,7 +93,7 @@ def calculate_gain(graph_dict,node_pairs,partitions, nodes_to_move) :
     partitions[0].append((max_gain_pair[1]))
     partitions[1].remove((max_gain_pair[1]))
     partitions[1].append((max_gain_pair[0]))
-    print 'or is it this one?', time.time() - t0
+    #print 'or is it this one?', time.time() - t0
     
     return (node_pairs, partitions )
 
@@ -107,7 +105,7 @@ if __name__ == '__main__':
     #args = parser.parse_args()
 
     #file_handle = open(args.filename,'r')
-    file_handle = open('./input7.txt','r')
+    file_handle = open('./input6.txt','r')
     # First line of input file, graph properties
     first_line = file_handle.readline()
     first_line = first_line.rsplit()
@@ -125,8 +123,6 @@ if __name__ == '__main__':
     else:
         # Create list of partitions
         partitions = [range(1,num_of_vertex/2+1),range(num_of_vertex/2+1,num_of_vertex+1)]     
-    
-        
     node = 1
     # Create a dictory for graph information the syntax is in the following form
     # graph_dict[node] = [connection to oder nodes][external -internal cost]
@@ -200,7 +196,6 @@ if __name__ == '__main__':
         for partition in partitions:
             #print 'Partition', num_partitions + 1, partition
             num_partitions = num_partitions + 1
-        
         reset = True
         #t0 = time.time()
         node_pairs, total_cost = process_graph(graph_dict,partitions)    
@@ -209,13 +204,9 @@ if __name__ == '__main__':
         #print time.time() - t0, 'time to complete'
         nodes_to_move = []
         max_gain_pair= [] 
-        #print d_values
-        #print 'mean of d values'
         new_process = True
         if new_process:    
-            #print np.mean(d_values)
-            min_d = min(d_values)*.05
-            #print 'keep these'
+            min_d = min(d_values)*.5
             test = []
             for node in graph_dict.keys():
                 if graph_dict[node][2] < min_d:
@@ -225,13 +216,12 @@ if __name__ == '__main__':
             x=len(node_to_ignore)        
             for node in node_to_ignore:
                 count = count +1 
-                print 'checking node', count,'out of',x
+                #print 'checking node', count,'out of',x
                 keep_checking = True
                 counter = 0
                 while keep_checking:
                     try:
                         pair = node_pairs[counter]            
-                        #print pair
                         if node in pair:
                             node_pairs.pop(counter) 
                         else:
@@ -242,19 +232,17 @@ if __name__ == '__main__':
                         keep_checking = False
                         print 'Unexpected error in removing node pairs'
             print 'node pairs after removal', len(node_pairs)        
-    
-    
         while node_pairs:
-            print 'number of node pairs',len(node_pairs)            
-            t0 = time.time()
+            #print 'number of node pairs',len(node_pairs)            
+            #t0 = time.time()
             node_pairs, partitions = calculate_gain(graph_dict,node_pairs,partitions,nodes_to_move)
-            print 'finished calculate gain'
-            print time.time() - t0, 'time to complete'           
+            #print 'finished calculate gain'
+            #print time.time() - t0, 'time to complete'           
             if node_pairs: 
-                t0 = time.time()
+                #t0 = time.time()
                 ignore, ignore2 = process_graph(graph_dict,partitions)
-                print 'finished process graph'
-                print time.time() - t0, 'time to complete'  
+                #print 'finished process graph'
+                #print time.time() - t0, 'time to complete'  
         #print nodes_to_move
         partial_sum=0
         max_sum = 0

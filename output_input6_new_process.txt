@@ -1,0 +1,15 @@
+Iteration  1
+Cost of Partition 609
+node pairs before removal 2032050
+node pairs after removal 68
+number of node pairs 68
+finished calculate gain
+number of node pairs 33
+finished calculate gain
+maximum gain 12
+Iteration  2
+Cost of Partition 597
+node pairs before removal 2032050
+node pairs after removal 0
+maximum gain 0
+all done
