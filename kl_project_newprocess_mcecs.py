@@ -105,7 +105,7 @@ if __name__ == '__main__':
     #args = parser.parse_args()
 
     #file_handle = open(args.filename,'r')
-    file_handle = open('./input6.txt','r')
+    file_handle = open('./input_2395nodes.txt','r')
     # First line of input file, graph properties
     first_line = file_handle.readline()
     first_line = first_line.rsplit()
@@ -206,7 +206,7 @@ if __name__ == '__main__':
         max_gain_pair= [] 
         new_process = True
         if new_process:    
-            min_d = min(d_values)*.5
+            min_d = min(d_values)*.01
             test = []
             for node in graph_dict.keys():
                 if graph_dict[node][2] < min_d:
@@ -275,7 +275,7 @@ if __name__ == '__main__':
                 partitions[1].remove(move_nodes[0][1])
                 partitions[1].append(move_nodes[0][0])
             #print 'new partition'            
-            print partitions
+            #print partitions
         else:
             print 'all done'
             partitions=list(reversed(partitions))
