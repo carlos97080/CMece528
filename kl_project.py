@@ -275,8 +275,8 @@ if __name__ == '__main__':
                 partitions[1].append(move_nodes[0][0])
         else:
             print '********\nall done\n********'
-            print 'Partition 1\n', og_partition_for_iteration[0]
-            print 'Partition 2\n', og_partition_for_iteration[1]
+            print 'Partition 1\n', sorted(og_partition_for_iteration[0])
+            print 'Partition 2\n', sorted(og_partition_for_iteration[1])
             print 'Cost of partition', total_cost    
             keep_going = False
         iteration_count = iteration_count + 1
