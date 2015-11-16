@@ -99,17 +99,7 @@ if __name__ == '__main__':
     # Handle fast algorithm option
     fast_process = False
     if len(options) > 1:
-        if options[1] == '-fff':
-            print """******\nWarning: Running algorithm in this mode does not
-             guarantee best possible solution\n*******"""
-            fast_process = True
-            speed_coeff = 0.01
-        elif options[1] == '-ff':
-            print """******\nWarning: Running algorithm in this mode does not
-             guarantee best possible solution\n******"""
-            fast_process = True
-            speed_coeff = 0.1
-        elif options[1] == '-f':
+        if options[1] == '-f':
             print """******\nWarning: Running algorithm in this mode does not
              guarantee best possible solution\n******"""
             fast_process = True

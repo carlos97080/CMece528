@@ -90,7 +90,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="""Prints out nodes by partition and
                                                     cost of partition.""")
     parser.add_argument("-f", "--fast", 
-                        help="""Use this option if processing a large file -f(slowest),-ff(medium),-fff(fastest) """,
+                        help="""Use this option if processing a large file.""",
                         action="count",default=0)                                                 
     parser.add_argument("filename", help="""Input filename to be used for processing.""")
   
@@ -99,17 +99,17 @@ if __name__ == '__main__':
     file_handle = open(args.filename,'r')
     #file_handle = open('./input7.txt','r')
     # Handle fast algorithm option
-    if args.fast >=3:
-        print """******\nWarning: Running algorithm in this mode does not
-         guarantee best possible solution\n******"""
-        fast_process = True
-        speed_coeff = 0.01
-    elif args.fast ==2:
-        print """******\nWarning: Running algorithm in this mode does not
-         guarantee best possible solution\n******"""
-        fast_process = True
-        speed_coeff = 0.1
-    elif args.fast == 1:
+    #if args.fast >=3:
+        #print """******\nWarning: Running algorithm in this mode does not
+         #guarantee best possible solution\n******"""
+        #fast_process = True
+        #speed_coeff = 0.01
+    #elif args.fast ==2:
+        #print """******\nWarning: Running algorithm in this mode does not
+         #guarantee best possible solution\n******"""
+        #fast_process = True
+        #speed_coeff = 0.1
+    if args.fast == 1:
         print """******\nWarning: Running algorithm in this mode does not
          guarantee best possible solution\n******"""
         fast_process = True
