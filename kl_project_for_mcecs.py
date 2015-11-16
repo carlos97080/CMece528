@@ -93,9 +93,7 @@ if __name__ == '__main__':
        file_handle = open(options[0],'r')
     except:
         sys.exit('Input file error')
-
     file_handle = open(options[0],'r')
-    #file_handle = open('./input7.txt','r')
     # Handle fast algorithm option
     fast_process = False
     if len(options) > 1:
@@ -128,11 +126,7 @@ if __name__ == '__main__':
     # Create a dictory for graph information the syntax is in the following form
     # graph_dict[node] = [connection to oder nodes][true/false][external -internal cost]
     graph_dict = {}
-    #TODO remove this print in final
-    #print 'Processing file:'
     for line in file_handle:
-     #TODO remove this print   
-	#print line,
         line = line.rsplit()
         # input file is the description of the graph 
         # Lets put in in a dictionary

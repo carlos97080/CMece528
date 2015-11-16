@@ -97,18 +97,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     file_handle = open(args.filename,'r')
-    #file_handle = open('./input7.txt','r')
-    # Handle fast algorithm option
-    #if args.fast >=3:
-        #print """******\nWarning: Running algorithm in this mode does not
-         #guarantee best possible solution\n******"""
-        #fast_process = True
-        #speed_coeff = 0.01
-    #elif args.fast ==2:
-        #print """******\nWarning: Running algorithm in this mode does not
-         #guarantee best possible solution\n******"""
-        #fast_process = True
-        #speed_coeff = 0.1
     if args.fast == 1:
         print """******\nWarning: Running algorithm in this mode does not
          guarantee best possible solution\n******"""
@@ -139,11 +127,7 @@ if __name__ == '__main__':
     # Create a dictory for graph information the syntax is in the following form
     # graph_dict[node] = [connection to oder nodes][true/false][external -internal cost]
     graph_dict = {}
-    #TODO remove this print in final
-    #print 'Processing file:'
     for line in file_handle:
-     #TODO remove this print   
-	#print line,
         line = line.rsplit()
         # input file is the description of the graph 
         # Lets put in in a dictionary
